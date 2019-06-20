@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luochuan.j1902_0610.mapper.SysPermissionMapper">
+
+    <resultMap id="permissionMap" type="SysPermission">
+        <id column="permission_id" property="permId"></id>
+        <result column="per_name" property="permName"/>
+        <result column="menu_url" property="permUrl"/>
+        <result column="menu_name" property="menuName"/>
+        <result column="menu_type" property="menuLevel"/>
+
+        <result column="menu_Code" property="menuCode"/>
+        <result column="is_Valid" property="ifValid"/>
+        <result column="parent_code" property="parentCode"/>
+    </resultMap>
+    <!--<sql id="SysPermission_clumn">
+        permission_id,per_name,menu_url,menu_name,menu_type,menu_Code,is_Valid,parent_code
+    </sql>-->
+    <select id="findPermsByUserName" parameterType="String" resultMap="permissionMap">
+        select
+          p.*
+        FROM
+          tb_sys_user  u,
+           tb_user_role  ur,
+           tb_sys_role  r,
+           tb_role_permission rp,
+           tb_sys_permission p
+        where
+           u.userid = ur.user_id
+        and ur.role_id = r.role_id
+        and r.role_id = rp.role_id
+        and rp.permission_id = p.permission_id
+        and u.loginName = #{loginName}
+
+    </select>
+</mapper>

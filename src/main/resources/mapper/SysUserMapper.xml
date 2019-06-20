@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luochuan.j1902_0610.mapper.SysUserMapper">
+
+    <resultMap id="userMapper" type="com.luochuan.j1902_0610.pojo.SysUser">
+        <id property="userid" column="userid"/>
+        <result property="password" column="password"/>
+        <result property="loginName" column="loginname"/>
+        <result property="createTime" column="createTime"/>
+        <result property="realname" column="realname"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+    <sql id="Sysuser_columns">
+      userid,
+      password,
+      loginname,
+      createTime,
+      realname,
+      state
+    </sql>
+    <select id="findUserByLoginName" parameterType="string" resultMap="userMapper">
+        SELECT
+        <include refid="Sysuser_columns"/>
+        FROM tb_sys_user
+        WHERE
+        loginName=#{loginName}
+    </select>
+
+</mapper>
